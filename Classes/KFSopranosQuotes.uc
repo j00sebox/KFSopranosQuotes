@@ -1,5 +1,5 @@
-class SopranosQuotes extends Mutator
-    config(SopranosQuotes);
+class KFSopranosQuotes extends Mutator
+    config(KFSopranosQuotes);
 
 
 var private config array<string> Messages;
