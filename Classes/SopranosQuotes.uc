@@ -48,7 +48,7 @@ private final function SendGreeting(PlayerController pc) {
     entry.pc = pc;
     entry.repeatsLeft = 2;
 
-    pc.teamMessage(none, entry.msg, 'SopranosQuotes');
+    pc.teamMessage(none, entry.msg, 'KFSopranosQuotes');
     PendingGreetings[PendingGreetings.length] = entry;
     SetTimer(3.0, true);
 }
@@ -61,7 +61,7 @@ function Timer() {
             PendingGreetings.Remove(i, 1);
             continue;
         }
-        PendingGreetings[i].pc.teamMessage(none, PendingGreetings[i].msg, 'SopranosQuotes');
+        PendingGreetings[i].pc.teamMessage(none, PendingGreetings[i].msg, 'KFSopranosQuotes');
         PendingGreetings[i].repeatsLeft--;
         if (PendingGreetings[i].repeatsLeft <= 0)
             PendingGreetings.Remove(i, 1);
