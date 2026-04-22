@@ -4,6 +4,12 @@ class KFSopranosQuotes extends Mutator
 
 var private config array<string> Messages;
 
+struct sColorTag {
+    var string Tag;
+    var Color C;
+};
+var private array<sColorTag> Colors;
+
 var private transient array<PlayerController> GreetedPCs;
 
 struct sPendingGreeting {
@@ -48,6 +54,7 @@ private final function SendGreeting(PlayerController pc) {
     entry.pc = pc;
     entry.repeatsLeft = 2;
 
+    entry.msg = ParseTags(entry.msg);
     pc.teamMessage(none, entry.msg, 'KFSopranosQuotes');
     PendingGreetings[PendingGreetings.length] = entry;
     SetTimer(3.0, true);
@@ -87,7 +94,22 @@ function NotifyLogout(Controller Exiting) {
     super.NotifyLogout(Exiting);
 }
 
+private final function string ParseTags(string input) {
+    local int i;
+
+    for (i = 0; i < Colors.length; i++) {
+        ReplaceText(input, Colors[i].Tag, class'GameInfo'.static.MakeColorCode(Colors[i].C));
+    }
+    return input;
+}
+
 defaultproperties {
+    Colors(0)=(Tag="^r",C=(R=255,G=0,B=0,A=0))
+    Colors(1)=(Tag="^g",C=(R=0,G=255,B=0,A=0))
+    Colors(2)=(Tag="^b",C=(R=0,G=100,B=200,A=0))
+    Colors(3)=(Tag="^y",C=(R=255,G=255,B=0,A=0))
+    Colors(4)=(Tag="^w",C=(R=255,G=255,B=255,A=0))
+    Colors(5)=(Tag="^o",C=(R=200,G=77,B=0,A=0))
     GroupName="KF-SopranosQuotes"
     FriendlyName="Sopranos Quotes"
     Description="Random Sopranos quotes on spawn."
